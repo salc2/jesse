@@ -1,7 +1,12 @@
 type cancelable = unit => unit;
-type subscription('a) = 'a => unit => cancelable;
+type subscriber('a) = 'a => unit 
+type subscription('a) = {
+    id: string,
+    run: subscriber('a) => cancelable
+};
 
-let from = (x:'a) => (func: 'a => unit) => {
-    func(x);
-    () => Js.log("Cancelling");
-}; 
+let create = (id: string, body: subscriber('a) => cancelable) => {
+    id: id,
+    run: (s: subscriber('a)) => body(s)
+};
+    

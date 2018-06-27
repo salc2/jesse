@@ -3,13 +3,12 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 
-function from(x, func) {
-  Curry._1(func, x);
-  return (function () {
-      console.log("Cancelling");
-      return /* () */0;
-    });
+function create(id, body) {
+  return /* record */[
+          /* id */id,
+          /* run */Curry.__1(body)
+        ];
 }
 
-exports.from = from;
+exports.create = create;
 /* No side effect */
