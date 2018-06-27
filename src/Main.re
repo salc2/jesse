@@ -1,19 +1,20 @@
 open Subscription;
 open Dom;
 
-let animationSub: subscription(float) = create("animationSub", (consumer) =>{
+let animationSub: subscription(float) =
+  create("animationSub", consumer => {
     let id = ref(0);
-    let rec keepAnimation = (time) => {
-        consumer(time);
-        id := requestAnimationFrame(keepAnimation);
+    let rec keepAnimation = time => {
+      consumer(time);
+      id := requestAnimationFrame(keepAnimation);
     };
     id := requestAnimationFrame(keepAnimation);
     () => cancelAnimationFrame(id^);
-} );
+  });
 
 Js.log("Hello, BuckleScript and Reason!");
 
-type action = 
+type action =
   | PassageOfTime
   | ArrowLeftPressed
   | ArrowRightPressed
@@ -21,6 +22,10 @@ type action =
   | ArrowRightReleased
   | ArrowUpPressed;
 
-let runGame = (update: ('a, 'm) => 'm, render: 'm => unit, subs: subscription('a), model: 'm) => {
- /*   let currentSubs: list( subscription('a))) */ 1;
-}
+let runGame =
+    (
+      update: ('a, 'm) => 'm,
+      render: 'm => unit,
+      subs: subscription('a),
+      model: 'm,
+    ) => 1 /*   let currentSubs: list( subscription('a))) */;

@@ -5,6 +5,7 @@
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
+    "format": "bsrefmt src/*.re --in-place",
     "webpack": "webpack -w",
     "webpack:production": "set NODE_ENV=production & webpack"
   },
