@@ -23,6 +23,13 @@ function create(id, body) {
           ]);
 }
 
+function $pipe$plus$pipe(s1, s2) {
+  return /* Combine */Block.__(1, [
+            s1,
+            s2
+          ]);
+}
+
 function run(_subtion, subber) {
   while(true) {
     var subtion = _subtion;
@@ -42,5 +49,6 @@ function run(_subtion, subber) {
 
 exports.single = single;
 exports.create = create;
+exports.$pipe$plus$pipe = $pipe$plus$pipe;
 exports.run = run;
 /* No side effect */
