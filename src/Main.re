@@ -12,7 +12,10 @@ let animationSub: Subs.subscription(float) =
   });
 
 let cancel = Subs.run(animationSub, Js.log);
-
+setTimeout(()=> {
+  Js.log("Hola");
+  cancel();
+},5000);
 Js.log("Hello, BuckleScript and Reason!");
 
 type action =
@@ -25,9 +28,30 @@ type action =
 
 let runGame =
     (
-      update: ('a, 'm) => 'm,
+      update: ('a, 'm) => ('m, Cmd.cmd('a)),
       render: 'm => unit,
-      subs: Subs.subscription('a),
-      model: 'm,
-    ) =>
-  1 /*   let currentSubs: list( subscription('a))) */;
+      subscriptions: 'm => Subs.subscription('a),
+      initState: ('m, Cmd.cmd('a)),
+    ) =>{
+      let currentSubscribedTo = ref([]);
+      let (m,c) = initState;
+      let currentModel = ref(m);
+      
+      let handleSubs = (subs) => {
+        []
+      };
+     
+      let rec onEvent = (event, runEffect) => {
+        let (nModel, effect) = update(event, currentModel^);
+        runEffect(effect);
+        currentSubscribedTo := handleSubs(subscriptions(currentModel^));
+        render(nModel);
+      };
+
+      let rec runEffect = cmd => {
+        Dom.setTimeout( () => Cmd.run(cmd,onEvent(_,runEffect)) ,0);
+      };
+
+      
+
+    };
