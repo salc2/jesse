@@ -1,8 +1,7 @@
-open Subscription;
 open Dom;
 
-let animationSub: subscription(float) =
-  create("animationSub", consumer => {
+let animationSub: Subs.subscription(float) =
+  Subs.create("animationSub", consumer => {
     let id = ref(0);
     let rec keepAnimation = time => {
       consumer(time);
@@ -11,6 +10,8 @@ let animationSub: subscription(float) =
     id := requestAnimationFrame(keepAnimation);
     () => cancelAnimationFrame(id^);
   });
+
+let cancel = Subs.run(animationSub, Js.log);
 
 Js.log("Hello, BuckleScript and Reason!");
 
@@ -26,6 +27,7 @@ let runGame =
     (
       update: ('a, 'm) => 'm,
       render: 'm => unit,
-      subs: subscription('a),
+      subs: Subs.subscription('a),
       model: 'm,
-    ) => 1 /*   let currentSubs: list( subscription('a))) */;
+    ) =>
+  1 /*   let currentSubs: list( subscription('a))) */;

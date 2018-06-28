@@ -2,9 +2,9 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
-var Subscription$Jesse = require("./Subscription.bs.js");
+var Subs$Jesse = require("./Subs.bs.js");
 
-var animationSub = Subscription$Jesse.create("animationSub", (function (consumer) {
+var animationSub = Subs$Jesse.create("animationSub", (function (consumer) {
         var id = [0];
         var keepAnimation = function (time) {
           Curry._1(consumer, time);
@@ -18,6 +18,11 @@ var animationSub = Subscription$Jesse.create("animationSub", (function (consumer
           });
       }));
 
+var cancel = Subs$Jesse.run(animationSub, (function (prim) {
+        console.log(prim);
+        return /* () */0;
+      }));
+
 console.log("Hello, BuckleScript and Reason!");
 
 function runGame(_, _$1, _$2, _$3) {
@@ -25,5 +30,6 @@ function runGame(_, _$1, _$2, _$3) {
 }
 
 exports.animationSub = animationSub;
+exports.cancel = cancel;
 exports.runGame = runGame;
 /* animationSub Not a pure module */
