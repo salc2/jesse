@@ -32,14 +32,8 @@ function u(e, m) {
         ];
 }
 
-function sub(m) {
-  if (m < 3300) {
-    console.log("Aqui if");
-    return /* Empty */0;
-  } else {
-    console.log("Aqui else");
-    return clockFrames;
-  }
+function sub() {
+  return clockFrames;
 }
 
 function render(m) {
@@ -49,9 +43,13 @@ function render(m) {
 
 BaseGame$Jesse.runGame(u, render, sub, initM);
 
-exports.clockFrames = clockFrames;
-exports.initM = initM;
-exports.u = u;
-exports.sub = sub;
-exports.render = render;
+var Main = /* module */[
+  /* clockFrames */clockFrames,
+  /* initM */initM,
+  /* u */u,
+  /* sub */sub,
+  /* render */render
+];
+
+exports.Main = Main;
 /* clockFrames Not a pure module */

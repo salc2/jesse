@@ -81,7 +81,8 @@ function runGame(update, render, subscriptions, initState) {
   return runEffect(initState[1], Curry._1(subscriptions, m));
 }
 
-var BaseGame = /* module */[/* runGame */runGame];
+var hola = "hola";
 
-exports.BaseGame = BaseGame;
+exports.hola = hola;
+exports.runGame = runGame;
 /* No side effect */
