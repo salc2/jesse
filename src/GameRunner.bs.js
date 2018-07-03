@@ -37,13 +37,12 @@ function run(update, render, subscriptions, initState) {
                     }
                   };
                   var incomingSub = loop(subs);
-                  var currIds = List.map((function (el) {
-                          return el[0];
+                  var currIds = List.map((function (prim) {
+                          return prim[0];
                         }), currentSubscribedTo[0]);
                   var match = List.partition((function (el) {
-                          var id = el[0];
                           return List.exists((function (cid) {
-                                        return cid === id;
+                                        return cid === el[0];
                                       }), currIds);
                         }), incomingSub);
                   var currSubs = match[0];

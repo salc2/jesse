@@ -24,19 +24,14 @@ let run = (update, render, subscriptions, initState) => {
         };
 
         let currIds =
-          List.map(
-            el => {
-              let (id, _) = el;
-              id;
-            },
+          List.map(fst,
             currentSubscribedTo^,
           );
 
         let (currSubs, newSubs) =
           List.partition(
             el => {
-              let (id, _) = el;
-              List.exists(cid => cid == id, currIds);
+              List.exists(cid => cid == fst(el), currIds);
             },
             incomingSub,
           );
@@ -46,8 +41,7 @@ let run = (update, render, subscriptions, initState) => {
             id =>
               List.exists(
                 el => {
-                  let (cid, _) = el;
-                  cid == id;
+                  fst(el) == id;
                 },
                 currSubs,
               ),
@@ -73,8 +67,7 @@ let run = (update, render, subscriptions, initState) => {
             let (_, cancel) =
               List.find(
                 e => {
-                  let (i, _) = e;
-                  i == id;
+                  fst(e) == id;
                 },
                 currentSubscribedTo^,
               );
@@ -82,8 +75,7 @@ let run = (update, render, subscriptions, initState) => {
             currentSubscribedTo :=
               List.filter(
                 o => {
-                  let (i, _) = o;
-                  i != id;
+                  fst(o) != id;
                 },
                 currentSubscribedTo^,
               );
