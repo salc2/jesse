@@ -48,8 +48,6 @@ let run = (update, render, subscriptions, initState) => {
             currIds,
           );
 
-        Js.log(toRemove);
-
         List.iter(
           s => {
             let (id, sub) = s;

@@ -17,5 +17,7 @@ let initState = (0., Cmd.Empty);
 let update = (e, m) => (m +. e, Cmd.Empty);
 let subscriptions = _ => clockFrames;
 
-let render = m => Js.log("Hola " ++ string_of_float(m));
+let render = m => {
+    FPSMeter.tick(FPSMeter.fpsMeter);
+};
 GameRunner.run(update, render, subscriptions, initState);

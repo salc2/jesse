@@ -51,8 +51,6 @@ function run(update, render, subscriptions, initState) {
                                         return el[0] === id;
                                       }), currSubs);
                         }), currIds);
-                  var toRemove = match$1[1];
-                  console.log(toRemove);
                   List.iter((function (s) {
                           currentSubscribedTo[0] = /* :: */[
                             /* tuple */[
@@ -74,7 +72,7 @@ function run(update, render, subscriptions, initState) {
                                           return o[0] !== id;
                                         }))(currentSubscribedTo[0]);
                                 return /* () */0;
-                              }), toRemove);
+                              }), match$1[1]);
                 }), 0);
   };
   return runEffect(initState[1], Curry._1(subscriptions, m));

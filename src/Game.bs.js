@@ -2,8 +2,8 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
-var Pervasives = require("bs-platform/lib/js/pervasives.js");
 var Subs$Jesse = require("./Subs.bs.js");
+var FPSMeter$Jesse = require("./FPSMeter.bs.js");
 var GameRunner$Jesse = require("./GameRunner.bs.js");
 
 var clockFrames = Subs$Jesse.create("clock", (function (consumer) {
@@ -36,8 +36,8 @@ function subscriptions() {
   return clockFrames;
 }
 
-function render(m) {
-  console.log("Hola " + Pervasives.string_of_float(m));
+function render() {
+  FPSMeter$Jesse.fpsMeter.tick();
   return /* () */0;
 }
 
