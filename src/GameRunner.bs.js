@@ -7,7 +7,7 @@ var Cmd$Jesse = require("./Cmd.bs.js");
 var Pervasives = require("bs-platform/lib/js/pervasives.js");
 var Subs$Jesse = require("./Subs.bs.js");
 
-function runGame(update, render, subscriptions, initState) {
+function run(update, render, subscriptions, initState) {
   var currentSubscribedTo = [/* [] */0];
   var m = initState[0];
   var currentModel = [m];
@@ -81,8 +81,5 @@ function runGame(update, render, subscriptions, initState) {
   return runEffect(initState[1], Curry._1(subscriptions, m));
 }
 
-var hola = "hola";
-
-exports.hola = hola;
-exports.runGame = runGame;
+exports.run = run;
 /* No side effect */

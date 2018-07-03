@@ -1,5 +1,6 @@
-module Main = {
-  open Dom;
+open Dom;
+type action = float;
+type model = float;
 
 let clockFrames: Subs.subscription(float) =
   Subs.create("clock", consumer => {
@@ -12,12 +13,9 @@ let clockFrames: Subs.subscription(float) =
     () => cancelAnimationFrame(id^);
   });
 
-let initM = (0., Cmd.Empty);
-type msg = float;
-let u = (e, m) => (m +. e, Cmd.Empty);
-let sub = m => clockFrames;
+let initState = (0., Cmd.Empty);
+let update = (e, m) => (m +. e, Cmd.Empty);
+let subscriptions = _ => clockFrames;
 
 let render = m => Js.log("Hola " ++ string_of_float(m));
-open BaseGame;
-runGame(u, render, sub, initM);
-};
+GameRunner.run(update, render, subscriptions, initState);

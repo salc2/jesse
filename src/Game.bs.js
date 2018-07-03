@@ -4,7 +4,7 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var Pervasives = require("bs-platform/lib/js/pervasives.js");
 var Subs$Jesse = require("./Subs.bs.js");
-var BaseGame$Jesse = require("./BaseGame.bs.js");
+var GameRunner$Jesse = require("./GameRunner.bs.js");
 
 var clockFrames = Subs$Jesse.create("clock", (function (consumer) {
         var id = [0];
@@ -20,19 +20,19 @@ var clockFrames = Subs$Jesse.create("clock", (function (consumer) {
           });
       }));
 
-var initM = /* tuple */[
+var initState = /* tuple */[
   0,
   /* Empty */0
 ];
 
-function u(e, m) {
+function update(e, m) {
   return /* tuple */[
           m + e,
           /* Empty */0
         ];
 }
 
-function sub() {
+function subscriptions() {
   return clockFrames;
 }
 
@@ -41,15 +41,10 @@ function render(m) {
   return /* () */0;
 }
 
-BaseGame$Jesse.runGame(u, render, sub, initM);
+GameRunner$Jesse.run(update, render, subscriptions, initState);
 
-var Main = /* module */[
-  /* clockFrames */clockFrames,
-  /* initM */initM,
-  /* u */u,
-  /* sub */sub,
-  /* render */render
-];
-
-exports.Main = Main;
+exports.update = update;
+exports.render = render;
+exports.subscriptions = subscriptions;
+exports.initState = initState;
 /* clockFrames Not a pure module */
