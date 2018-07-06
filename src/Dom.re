@@ -4,3 +4,8 @@ external requestAnimationFrame : (float => unit) => int = "";
 external cancelAnimationFrame : int => unit = "";
 [@bs.scope "window"] [@bs.val]
 external setTimeout : (unit => unit, int) => int = "";
+type canvas;
+let getCanvas: string => canvas = [%bs.raw {| (id) => document.getElementById(id) |}];
+
+[@bs.scope ("document","body")] [@bs.val]
+external appendChild : canvas => unit = "";

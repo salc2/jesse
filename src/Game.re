@@ -1,4 +1,3 @@
-open Dom;
 type action = float;
 type model = float;
 
@@ -7,10 +6,10 @@ let clockFrames: Subs.subscription(float) =
     let id = ref(0);
     let rec keepAnimation = time => {
       consumer(time);
-      id := requestAnimationFrame(keepAnimation);
+      id := Dom.requestAnimationFrame(keepAnimation);
     };
-    id := requestAnimationFrame(keepAnimation);
-    () => cancelAnimationFrame(id^);
+    id := Dom.requestAnimationFrame(keepAnimation);
+    () => Dom.cancelAnimationFrame(id^);
   });
 
 let initState = (0., Cmd.Empty);
