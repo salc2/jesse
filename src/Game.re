@@ -34,7 +34,18 @@ let graph = PIXI.Graphics.create;
 PIXI.Graphics.beginFill(graph,0xFFFF00);
 PIXI.Container.addChild(stage,graph);
 
+
+let engine = Matter.Engine.create; 
+let recA = Matter.Bodies.rectangle(400., 200., 80., 80.);
+Matter.World.add(Matter.Engine.getWorld(engine), [recA]);
+
+
+let print: 'a => unit = [%bs.raw {| function(a){console.log(a.position);} |}];
+
+
 let render = m => {
+  Matter.Engine.update(engine, 16.);
+  print(recA);
   let (r,f,p) = m;
 
   let (rx,ry,rw,rh) = r;

@@ -4,7 +4,9 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var PixiJs = require("pixi.js");
 var Dom$Jesse = require("./Dom.bs.js");
+var MatterJs = require("matter-js");
 var Subs$Jesse = require("./Subs.bs.js");
+var Matter$Jesse = require("./Matter.bs.js");
 var FPSMeter$Jesse = require("./FPSMeter.bs.js");
 var GameRunner$Jesse = require("./GameRunner.bs.js");
 
@@ -80,7 +82,20 @@ graph.beginFill(16776960);
 
 stage.addChild(graph);
 
+var engine = new (MatterJs.Engine.create)();
+
+var recA = MatterJs.Bodies.rectangle(400, 200, 80, 80);
+
+MatterJs.World.add(Curry._1(Matter$Jesse.Engine[/* getWorld */0], engine), /* :: */[
+      recA,
+      /* [] */0
+    ]);
+
+var print = ( function(a){console.log(a.position);} );
+
 function render(m) {
+  MatterJs.Engine.update(engine, 16);
+  Curry._1(print, recA);
   var r = m[0];
   var p = m[2];
   var f = m[1];
