@@ -2,7 +2,7 @@
 'use strict';
 
 
-var fpsMeter = ( new FPSMeter() );
+var getInstance = ( () => new FPSMeter() );
 
-exports.fpsMeter = fpsMeter;
-/* fpsMeter Not a pure module */
+exports.getInstance = getInstance;
+/* getInstance Not a pure module */

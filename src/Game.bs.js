@@ -36,8 +36,10 @@ function subscriptions() {
   return clockFrames;
 }
 
+var fps = Curry._1(FPSMeter$Jesse.getInstance, /* () */0);
+
 function render() {
-  FPSMeter$Jesse.fpsMeter.tick();
+  fps.tick();
   return /* () */0;
 }
 
