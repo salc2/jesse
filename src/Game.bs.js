@@ -2,6 +2,8 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
+var PixiJs = require("pixi.js");
+var Dom$Jesse = require("./Dom.bs.js");
 var Subs$Jesse = require("./Subs.bs.js");
 var FPSMeter$Jesse = require("./FPSMeter.bs.js");
 var GameRunner$Jesse = require("./GameRunner.bs.js");
@@ -20,14 +22,35 @@ var clockFrames = Subs$Jesse.create("clock", (function (consumer) {
           });
       }));
 
+var initState_000 = /* tuple */[
+  /* tuple */[
+    0,
+    0,
+    320,
+    5
+  ],
+  /* tuple */[
+    0,
+    175,
+    320,
+    5
+  ],
+  /* tuple */[
+    160,
+    90,
+    28,
+    28
+  ]
+];
+
 var initState = /* tuple */[
-  0,
+  initState_000,
   /* Empty */0
 ];
 
-function update(e, m) {
+function update(_, m) {
   return /* tuple */[
-          m + e,
+          m,
           /* Empty */0
         ];
 }
@@ -38,7 +61,33 @@ function subscriptions() {
 
 var fps = Curry._1(FPSMeter$Jesse.getInstance, /* () */0);
 
-function render() {
+var canvas = Curry._1(Dom$Jesse.getCanvas, "myCanvas");
+
+var conf = {
+  view: canvas,
+  antialias: false,
+  transparent: false,
+  resolution: 2
+};
+
+var stage = new PixiJs.Container();
+
+var renderer = PixiJs.autoDetectRenderer(320, 180, conf);
+
+var graph = new PixiJs.Graphics();
+
+graph.beginFill(16776960);
+
+stage.addChild(graph);
+
+function render(m) {
+  var r = m[0];
+  var p = m[2];
+  var f = m[1];
+  graph.drawRect(r[0], r[1], r[2], r[3]);
+  graph.drawRect(f[0], f[1], f[2], f[3]);
+  graph.drawRect(p[0], p[1], p[2], p[3]);
+  renderer.render(stage);
   fps.tick();
   return /* () */0;
 }

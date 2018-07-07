@@ -1,16 +1,22 @@
 type containerType;
 type sprite;
 type graphics;
+type renderer;
+
+[@bs.deriving abstract]
 type appType = {
-    view: Dom.canvas,
     stage: containerType
 };
+
+[@bs.deriving abstract]
 type appConf = {
-    backgroundColor: int
+    width: int,
+    height: int
 };
 
 module Application = {
-    [@bs.new] [@bs.module "pixi.js"] external create : (int,int,appConf) => appType = "Application";
+    [@bs.new] [@bs.module "pixi.js"] external create : appConf => appType = "Application";
+    let getView: appType => Dom.canvas = [%bs.raw {| (app) => app.view |}];
 };
 module Container = {
     [@bs.new] [@bs.module "pixi.js"] external create : containerType = "Container";
@@ -21,13 +27,18 @@ module Graphics = {
     [@bs.new] [@bs.module "pixi.js"] external create : graphics = "Graphics";
     [@bs.send] external beginFill : (graphics, int) => unit = "";
     [@bs.send] external lineStyle : (graphics, int, int) => unit = "";
-    [@bs.send] external drawRect : (graphics, int, int, int, int) => unit = "";
+    [@bs.send] external drawRect : (graphics, float, float, float, float) => unit = "";
 };
 
 module Sprite = {
     [@bs.val][@bs.module "pixi.js"][@bs.scope ("Sprite")] external fromImage : string => sprite = "";
 };
 
+module Utils = {
+    [@bs.val][@bs.module "pixi.js"][@bs.scope ("utils")] external sayHello : string => unit = "";
+};
+
+[@bs.deriving abstract]
 type renderConfig = {
     view: Dom.canvas,
     antialias: bool,
@@ -36,7 +47,7 @@ type renderConfig = {
 };
 
 type loader;
-type renderer;
+
 [@bs.val] [@bs.module "pixi.js"] external autoDetectRenderer : (int,int,renderConfig) => renderer = "";
 [@bs.send] external render : (renderer, containerType) => unit = "";
 

@@ -7,5 +7,5 @@ external setTimeout : (unit => unit, int) => int = "";
 type canvas;
 let getCanvas: string => canvas = [%bs.raw {| (id) => document.getElementById(id) |}];
 
-[@bs.scope ("document","body")] [@bs.val]
+[@bs.scope ("window","document","body")] [@bs.val]
 external appendChild : canvas => unit = "";

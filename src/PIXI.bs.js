@@ -2,7 +2,9 @@
 'use strict';
 
 
-var Application = /* module */[];
+var getView = ( (app) => app.view );
+
+var Application = /* module */[/* getView */getView];
 
 var Container = /* module */[];
 
@@ -10,8 +12,11 @@ var Graphics = /* module */[];
 
 var Sprite = /* module */[];
 
+var Utils = /* module */[];
+
 exports.Application = Application;
 exports.Container = Container;
 exports.Graphics = Graphics;
 exports.Sprite = Sprite;
-/* No side effect */
+exports.Utils = Utils;
+/* getView Not a pure module */
