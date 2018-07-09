@@ -11,12 +11,27 @@ let clockFrames: Subs.subscription(float) =
     id := Dom.requestAnimationFrame(keepAnimation);
     () => Dom.cancelAnimationFrame(id^);
   });
+
 let roof = (0.,0.,320.,5.);
 let floor = (0.,175.,320.,5.);
 let player = (160.,90.,28.,28.);
 
+let engine = Matter.Engine.create; 
+
+let roofP = Matter.Bodies.rectangle(0., 0., 320., 5.);
+let floorP = Matter.Bodies.rectangle(0., 175., 320., 5.);
+let playerP = Matter.Bodies.rectangle(160., 90., 28., 28.);
+
+Matter.World.add(Matter.Engine.getWorld(engine), [roofP, floorP, playerP]);
+
+
 let initState = ( (roof,floor,player), Cmd.Empty);
-let update = (e, m) => (m, Cmd.Empty);
+let update = (e, m) => (m, Cmd.NotNotify( () =>{  
+  Matter.Engine.update(engine, 16.); 
+  Matter.Engine.onUpdate( () => {
+    Js.log("updated!")
+  } ); 
+} ));
 let subscriptions = _ => clockFrames;
 let fps = FPSMeter.getInstance();
 let canvas = Dom.getCanvas("myCanvas");
@@ -35,17 +50,16 @@ PIXI.Graphics.beginFill(graph,0xFFFF00);
 PIXI.Container.addChild(stage,graph);
 
 
-let engine = Matter.Engine.create; 
-let recA = Matter.Bodies.rectangle(400., 200., 80., 80.);
-Matter.World.add(Matter.Engine.getWorld(engine), [recA]);
+
 
 
 let print: 'a => unit = [%bs.raw {| function(a){console.log(a.position);} |}];
 
 
 let render = m => {
-  Matter.Engine.update(engine, 16.);
-  print(recA);
+
+ 
+  
   let (r,f,p) = m;
 
   let (rx,ry,rw,rh) = r;
